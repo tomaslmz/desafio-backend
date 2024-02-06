@@ -6,7 +6,7 @@ import { Model, Table, DataType, Column, BeforeCreate, BeforeUpdate } from 'sequ
 })
 
 export default class Usuario extends Model {
-  public static USUARIO_TABLE_NAME = 'Usuario';
+  public static USUARIO_TABLE_NAME = 'Usuarios';
   public static USUARIO_ID = 'id';
   public static USUARIO_EMAIL = 'email';
   public static USUARIO_NOME = 'nome';
