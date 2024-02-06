@@ -1,5 +1,6 @@
 import { Sequelize } from 'sequelize-typescript';
 import env from '../schemas/env';
+import Categoria from '../models/Categoria';
 
 export default class Database {
   public sequelize: Sequelize | undefined;
@@ -11,7 +12,7 @@ export default class Database {
   private POSTGRES_PASSWORD = env.POSTGRES_PASSWORD;
 
   constructor() {
-
+    this.connect();
   }
 
   connect(): void {
@@ -21,7 +22,9 @@ export default class Database {
       host: this.POSTGRES_HOST,
       username: this.POSTGRES_USER,
       password: this.POSTGRES_PASSWORD,
-      dialect: 'postgres'
+      dialect: 'postgres',
+      models: [Categoria],
+      logging: false
     });
 
     this.sequelize.authenticate().then(() => {
