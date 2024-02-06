@@ -53,7 +53,7 @@ export default class CategoriaRepo implements ICategoriaRepo {
     try {
       return await Categoria.findAll();
     } catch(err: any) {
-      throw new Error(`Houve um erro para listar todos as categorias: ${err.message}`);
+      throw new Error(`Houve um erro para listar todas as categorias: ${err.message}`);
     }
   }
 
