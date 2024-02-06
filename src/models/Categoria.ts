@@ -1,12 +1,11 @@
-import { Model, Table, DataType, Column, HasMany } from 'sequelize-typescript';
-import Produto from './Produto';
+import { Model, Table, DataType, Column } from 'sequelize-typescript';
 
 @Table({
   tableName: Categoria.CATEGORIA_TABLE_NAME
 })
 
 export default class Categoria extends Model {
-  public static CATEGORIA_TABLE_NAME = 'Categorias';
+  public static CATEGORIA_TABLE_NAME = 'Categoria';
   public static CATEGORIA_ID = 'id';
   public static CATEGORIA_DESCRICAO = 'descricao';
 
@@ -23,7 +22,4 @@ export default class Categoria extends Model {
     allowNull: false,
     field: Categoria.CATEGORIA_DESCRICAO
   }) descricao!: string;
-
-  @HasMany(() => Produto)
-    produto!: Produto[]; 
 }
