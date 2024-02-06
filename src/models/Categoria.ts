@@ -14,10 +14,12 @@ export default class Categoria extends Model {
     primaryKey: true,
     allowNull: false,
     autoIncrement: true,
+    field: Categoria.CATEGORIA_ID
   }) id!: number;
 
   @Column({
     type: DataType.STRING(100),
-    allowNull: false
+    allowNull: false,
+    field: Categoria.CATEGORIA_DESCRICAO
   }) descricao!: string;
 }
