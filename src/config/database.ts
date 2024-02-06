@@ -1,6 +1,7 @@
 import { Sequelize } from 'sequelize-typescript';
 import env from '../schemas/env';
 import Categoria from '../models/Categoria';
+import Usuario from '../models/Usuario';
 
 export default class Database {
   public sequelize: Sequelize | undefined;
@@ -23,7 +24,7 @@ export default class Database {
       username: this.POSTGRES_USER,
       password: this.POSTGRES_PASSWORD,
       dialect: 'postgres',
-      models: [Categoria],
+      models: [Categoria, Usuario],
       logging: false
     });
 
