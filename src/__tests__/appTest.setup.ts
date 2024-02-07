@@ -2,6 +2,7 @@ import express, { type Application, type Request, type Response } from 'express'
 import Database from './config/databaseTest.setup';
 
 import CategoriaRouter from '../router/CategoriaRouter';
+import UsuarioRouter from '../router/UsuarioRouter';
 
 class App {
   public app: Application;
@@ -25,6 +26,7 @@ class App {
     });
 
     this.app.use('/api/v1/categoria', CategoriaRouter);
+    this.app.use('/api/v1/usuario', UsuarioRouter);
   }
 
   connectDatabase(): void {

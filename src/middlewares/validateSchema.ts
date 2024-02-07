@@ -14,10 +14,10 @@ const validate =
         return next();
       } catch(err: any) {
         const errorMessage = JSON.parse(err.message);
-        console.log(errorMessage);
+        
         return res.status(400).json({
           status: 'Bad request!',
-          message: errorMessage[0].message,
+          message: `É necessário um(a) ${errorMessage[0].path[1]} válido(a)!`,
         });
       }
     };
