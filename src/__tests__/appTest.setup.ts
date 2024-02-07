@@ -1,7 +1,7 @@
 import express, { type Application, type Request, type Response } from 'express';
-import Database from './config/database';
+import Database from './config/databaseTest.setup';
 
-import CategoriaRouter from './router/CategoriaRouter';
+import CategoriaRouter from '../router/CategoriaRouter';
 
 class App {
   public app: Application;
