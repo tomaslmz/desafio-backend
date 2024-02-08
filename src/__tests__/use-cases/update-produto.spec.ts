@@ -7,9 +7,21 @@ import Produto from '../../models/Produto';
 import getRandomBarcode from './utils/getRandomBarcode';
 import getRandomNumber from './utils/getRandomNumber';
 import getRandomUnit from './utils/getRandomUnit';
+import getRandomPhone from './utils/getRandomPhone';
+import Usuario from '../../models/Usuario';
+import getToken from './utils/getToken';
 
 describe('Atualizando um produto com categoria', () => {
   it('deve atualizar um produto com categoria', async () => {
+    const senha = uuidv4();
+    const email = `${uuidv4()}@test.com`;
+    const telefone = getRandomPhone();
+    const nome = uuidv4();
+
+    const novoUsuario = await Usuario.create({
+      senha, email, telefone, nome
+    });
+
     const novaCategoria = await Categoria.create({
       descricao: uuidv4()
     });
@@ -29,8 +41,11 @@ describe('Atualizando um produto com categoria', () => {
     const unidade_medida = getRandomUnit();
     const categoria_id = novaCategoria.id;
 
+    const token = await getToken(email, senha);
+
     const response = await request(app)
       .patch(`/api/v1/produto/update/${novoProduto.id}`)
+      .set('Authorization', `Bearer ${token}`)
       .send({ 
         codigo_barras, 
         descricao, 
@@ -64,5 +79,6 @@ describe('Atualizando um produto com categoria', () => {
     });
 
     await novaCategoria.destroy();
+    await novoUsuario.destroy();
   });
 });

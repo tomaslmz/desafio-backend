@@ -4,6 +4,7 @@ import app from '../appTest.setup';
 import { v4 as uuidv4 } from 'uuid';
 import Usuario from '../../models/Usuario';
 import getRandomPhone from './utils/getRandomPhone';
+import getToken from './utils/getToken';
 
 describe('Atualizando um usuário', () => {
   it('deve atualizar um usuário', async () => {
@@ -23,8 +24,11 @@ describe('Atualizando um usuário', () => {
     const novoTelefone = getRandomPhone();
     const novoNome = uuidv4();
 
+    const token = await getToken(email, senha);
+
     const response = await request(app)
-      .patch(`/api/v1/usuario/update/${novoUsuario.id}`)
+      .patch('/api/v1/usuario/update')
+      .set('Authorization', `Bearer ${token}`)
       .send({ senha: novaSenha, email: novoEmail, 
         telefone: novoTelefone,
         nome: novoNome })

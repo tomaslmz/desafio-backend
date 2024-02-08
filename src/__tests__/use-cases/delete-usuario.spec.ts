@@ -4,6 +4,7 @@ import app from '../appTest.setup';
 import { v4 as uuidv4 } from 'uuid';
 import Usuario from '../../models/Usuario';
 import getRandomPhone from './utils/getRandomPhone';
+import getToken from './utils/getToken';
 
 describe('Deletando um usuário', () => {
   it('deve deletar um usuário', async () => {
@@ -21,8 +22,11 @@ describe('Deletando um usuário', () => {
 
     expect(novoUsuario).toBeInstanceOf(Usuario);
 
+    const token = await getToken(email, senha);
+
     const response = await request(app)
-      .delete(`/api/v1/usuario/delete/${novoUsuario.id}`)
+      .delete('/api/v1/usuario/delete')
+      .set('Authorization', `Bearer ${token}`)
       .expect(200);
 
     const { status, message } = await response.body;
