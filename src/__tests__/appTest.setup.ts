@@ -3,6 +3,7 @@ import Database from './config/databaseTest.setup';
 
 import CategoriaRouter from '../router/CategoriaRouter';
 import UsuarioRouter from '../router/UsuarioRouter';
+import ProdutoRouter from '../router/ProdutoRouter';
 
 class App {
   public app: Application;
@@ -27,6 +28,7 @@ class App {
 
     this.app.use('/api/v1/categoria', CategoriaRouter);
     this.app.use('/api/v1/usuario', UsuarioRouter);
+    this.app.use('/api/v1/produto', ProdutoRouter);
   }
 
   connectDatabase(): void {

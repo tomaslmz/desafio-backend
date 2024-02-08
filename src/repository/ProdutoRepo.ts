@@ -1,3 +1,4 @@
+import Categoria from '../models/Categoria';
 import Produto from '../models/Produto';
 
 interface IProdutoRepo {
@@ -65,7 +66,15 @@ export default class ProdutoRepo implements IProdutoRepo {
 
   async getAll(): Promise<Produto[]> {
     try {
-      const produtos = await Produto.findAll();
+      const produtos = await Produto.findAll({
+        include: {
+          model: Categoria,
+          as: 'categoria'
+        },
+        attributes: {
+          exclude: ['categoria_id']
+        }
+      });
 
       return produtos;
     } catch(err: any) {
@@ -75,7 +84,15 @@ export default class ProdutoRepo implements IProdutoRepo {
 
   async get(id: number): Promise<Produto> {
     try {
-      const novoProduto = await Produto.findByPk(id);
+      const novoProduto = await Produto.findByPk(id, {
+        include: {
+          model: Categoria,
+          as: 'categoria'
+        },
+        attributes: {
+          exclude: ['categoria_id']
+        }
+      });
 
       if(!novoProduto) {
         throw new Error('Este produto não foi encontrado!');
