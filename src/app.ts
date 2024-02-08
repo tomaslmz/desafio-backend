@@ -1,10 +1,16 @@
 import express, { type Application, type Request, type Response } from 'express';
 import Database from './config/database';
-
+import cors from 'cors';
 import CategoriaRouter from './router/CategoriaRouter';
 import UsuarioRouter from './router/UsuarioRouter';
 import ProdutoRouter from './router/ProdutoRouter';
 import TokenRouter from './router/TokenRouter';
+
+const allowedOrigins = ['http://localhost:5173'];
+
+const options: cors.CorsOptions = {
+  origin: allowedOrigins
+};
 
 class App {
   public app: Application;
@@ -18,6 +24,7 @@ class App {
 
   plugins(): void {
     this.app.use(express.json());
+    this.app.use(cors(options));
   }
 
   routes(): void {
