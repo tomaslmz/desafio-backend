@@ -7,9 +7,22 @@ import Produto from '../../models/Produto';
 import getRandomBarcode from './utils/getRandomBarcode';
 import getRandomNumber from './utils/getRandomNumber';
 import getRandomUnit from './utils/getRandomUnit';
+import getToken from './utils/getToken';
+import Usuario from '../../models/Usuario';
+import getRandomPhone from './utils/getRandomPhone';
 
 describe('Deletando um produto com categoria', () => {
   it('deve deletar um produto com categoria', async () => {
+    const senha = uuidv4();
+    const email = `${uuidv4()}@test.com`;
+    const telefone = getRandomPhone();
+    const nome = uuidv4();
+
+    const novoUsuario = await Usuario.create({
+      senha, email, telefone, nome
+    });
+
+
     const novaCategoria = await Categoria.create({
       descricao: uuidv4()
     });
@@ -22,8 +35,11 @@ describe('Deletando um produto com categoria', () => {
       unidade_medida: getRandomUnit(),
     });
 
+    const token = await getToken(email, senha);
+
     const response = await request(app)
       .delete(`/api/v1/produto/delete/${novoProduto.id}`)
+      .set('Authorization', `Bearer ${token}`)
       .expect(200);
 
     const { status, message } = response.body;
@@ -35,5 +51,6 @@ describe('Deletando um produto com categoria', () => {
     expect(testeProduto).toBeNull();
 
     await novaCategoria.destroy();
+    await novoUsuario.destroy();
   });
 });

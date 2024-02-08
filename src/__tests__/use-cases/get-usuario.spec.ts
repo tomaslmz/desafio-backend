@@ -4,6 +4,7 @@ import app from '../appTest.setup';
 import { v4 as uuidv4 } from 'uuid';
 import Usuario from '../../models/Usuario';
 import getRandomPhone from './utils/getRandomPhone';
+import getToken from './utils/getToken';
 
 describe('Obtendo dados de um usuário', () => {
   it('deve obter os dados de um usuário', async () => {
@@ -17,8 +18,11 @@ describe('Obtendo dados de um usuário', () => {
       telefone: testeTelefone, nome: testeNome
     });
 
+    const token = await getToken(testeEmail, testeSenha);
+
     const response = await request(app)
-      .get(`/api/v1/usuario/search/${novoUsuario.id}`)
+      .get('/api/v1/usuario/search')
+      .set('Authorization', `Bearer ${token}`)
       .expect(200);
 
     const { status, message, data } = response.body;

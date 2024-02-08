@@ -7,9 +7,21 @@ import Produto from '../../models/Produto';
 import getRandomBarcode from './utils/getRandomBarcode';
 import getRandomNumber from './utils/getRandomNumber';
 import getRandomUnit from './utils/getRandomUnit';
+import Usuario from '../../models/Usuario';
+import getToken from './utils/getToken';
+import getRandomPhone from './utils/getRandomPhone';
 
 describe('Criando um produto com categoria', () => {
   it('deve criar um produto com categoria', async () => {
+    const senha = uuidv4();
+    const email = `${uuidv4()}@test.com`;
+    const telefone = getRandomPhone();
+    const nome = uuidv4();
+
+    const novoUsuario = await Usuario.create({
+      senha, email, telefone, nome
+    });
+
     const novaCategoria = await Categoria.create({
       descricao: uuidv4()
     });
@@ -21,8 +33,11 @@ describe('Criando um produto com categoria', () => {
     const unidade_medida = getRandomUnit();
     const categoria_id = novaCategoria.id;
 
+    const token = await getToken(email, senha);
+
     const response = await request(app)
       .post('/api/v1/produto/create')
+      .set('Authorization', `Bearer ${token}`)
       .send({ 
         codigo_barras, 
         descricao, 
@@ -45,5 +60,6 @@ describe('Criando um produto com categoria', () => {
     });
 
     await novaCategoria.destroy();
+    await novoUsuario.destroy();
   });
 });

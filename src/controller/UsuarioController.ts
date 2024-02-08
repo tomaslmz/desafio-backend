@@ -33,7 +33,7 @@ class UsuarioController {
       const { email, nome, telefone, senha } = req.body;
 
       const novoUsuario = new Usuario({
-        id: req.params.id,
+        id: req.user.id,
         email,
         nome,
         telefone, 
@@ -56,7 +56,7 @@ class UsuarioController {
 
   async delete(req: Request, res: Response) {
     try {
-      await new UsuarioRepo().delete(parseInt(req.params.id));
+      await new UsuarioRepo().delete(req.user.id);
 
       res.status(200).json({
         status: 'Usuário deletado!',
@@ -89,7 +89,7 @@ class UsuarioController {
 
   async get(req: Request, res: Response) {
     try {
-      const usuario = await new UsuarioRepo().get(parseInt(req.params.id));
+      const usuario = await new UsuarioRepo().get(req.user.id);
 
       res.status(200).json({
         status: 'Dado obtido!',

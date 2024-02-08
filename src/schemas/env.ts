@@ -9,7 +9,9 @@ const envSchema = z.object({
   POSTGRES_PORT: z.coerce.number(),
   POSTGRES_HOST: z.string(),
   POSTGRES_USER: z.string(),
-  POSTGRES_PASSWORD: z.string()
+  POSTGRES_PASSWORD: z.string(),
+  SECRET_TOKEN: z.string(),
+  TOKEN_EXPIRATION: z.string(),
 });
 
 const env = envSchema.parse(process.env);
