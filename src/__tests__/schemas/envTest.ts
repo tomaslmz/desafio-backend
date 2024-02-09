@@ -10,7 +10,7 @@ const envSchema = z.object({
   POSTGRES_HOST: z.string(),
   POSTGRES_USER: z.string(),
   POSTGRES_PASSWORD: z.string(),
-  TEST_TOKEN: z.string()
+  ORIGIN: z.string()
 });
 
 const env = envSchema.parse(process.env);

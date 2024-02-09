@@ -5,6 +5,15 @@ import CategoriaRouter from '../router/CategoriaRouter';
 import UsuarioRouter from '../router/UsuarioRouter';
 import ProdutoRouter from '../router/ProdutoRouter';
 import TokenRouter from '../router/TokenRouter';
+import cors from 'cors';
+import env from './schemas/envTest';
+
+const allowedOrigins = [env.ORIGIN];
+
+const options: cors.CorsOptions = {
+  origin: allowedOrigins,
+  credentials: true
+};
 
 class App {
   public app: Application;
@@ -18,6 +27,7 @@ class App {
 
   plugins(): void {
     this.app.use(express.json());
+    this.app.use(cors(options));
   }
 
   routes(): void {

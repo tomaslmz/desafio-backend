@@ -12,6 +12,7 @@ const envSchema = z.object({
   POSTGRES_PASSWORD: z.string(),
   SECRET_TOKEN: z.string(),
   TOKEN_EXPIRATION: z.string(),
+  ORIGIN: z.string()
 });
 
 const env = envSchema.parse(process.env);
