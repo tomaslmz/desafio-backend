@@ -40,6 +40,11 @@ class TokenController {
 
       req.user = { id };
 
+      res.cookie('auth', token, {
+        httpOnly: true,
+        maxAge: 15000 * 60 * 60 *24
+      });
+
       res.status(200).json({
         status: 'Usuário autenticado!',
         message: 'O token foi criado com sucesso!',
@@ -53,6 +58,22 @@ class TokenController {
         }
       });
 
+    } catch(err: any) {
+      res.status(500).json({
+        status: 'Erro interno do servidor!',
+        message: err.message
+      });
+    }
+  }
+
+  async logout(req: Request, res: Response) {
+    try {
+      res.clearCookie('auth');
+
+      res.status(200).json({
+        status: 'Logout realizado!',
+        message: 'O logout foi realizado com sucesso!'
+      });
     } catch(err: any) {
       res.status(500).json({
         status: 'Erro interno do servidor!',
