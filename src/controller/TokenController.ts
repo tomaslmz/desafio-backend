@@ -41,7 +41,6 @@ class TokenController {
       req.user = { id };
 
       res.cookie('auth', token, {
-        httpOnly: true,
         maxAge: 15000 * 60 * 60 *24
       });
 
