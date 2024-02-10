@@ -1,4 +1,4 @@
-# DESAFIO BYTECOM
+# DESAFIO BACKEND
 
 ## Tecnologias utilizadas
 <div align="center">
