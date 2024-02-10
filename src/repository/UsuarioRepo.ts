@@ -60,7 +60,9 @@ export default class UsuarioRepo implements IUsuarioRepo {
 
   async getAll(): Promise<Usuario[]> {
     try {
-      return await Usuario.findAll();
+      return await Usuario.findAll({
+        order: [['id', 'ASC']]
+      });
     } catch(err: any) {
       throw new Error(`Houve um erro para listar todos os usuários: ${err.message}`);
     }

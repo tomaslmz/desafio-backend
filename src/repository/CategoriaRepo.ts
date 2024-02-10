@@ -51,7 +51,9 @@ export default class CategoriaRepo implements ICategoriaRepo {
 
   async getAll(): Promise<Categoria[]> {
     try {
-      return await Categoria.findAll();
+      return await Categoria.findAll({
+        order: [['id', 'ASC']]
+      });
     } catch(err: any) {
       throw new Error(`Houve um erro para listar todas as categorias: ${err.message}`);
     }

@@ -67,6 +67,7 @@ export default class ProdutoRepo implements IProdutoRepo {
   async getAll(): Promise<Produto[]> {
     try {
       const produtos = await Produto.findAll({
+        order: [['id', 'ASC']],
         include: {
           model: Categoria,
           as: 'categoria'
